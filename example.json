@@ -1,0 +1,31 @@
+{
+    "name": "book",
+    "class": "Book",
+    "props": [
+        {
+            "name": "title",
+            "type": "String",
+            "default": ""
+        },
+        {
+            "name": "author",
+            "type": "String",
+            "default": ""
+        },
+        {
+            "name": "published",
+            "type": "DateTime",
+            "default": null
+        },
+        {
+            "name": "price",
+            "type": "Float",
+            "default": 10.0
+        },
+        {
+            "name": "read",
+            "type": "Bool",
+            "default": false
+        }
+    ]
+}
