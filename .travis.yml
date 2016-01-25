@@ -3,5 +3,11 @@ language: python
 python:
   - 2.7
 
+install:
+  - pip install coveralls
+
 script:
-  - nosetests --config=nose.cfg
+  - nosetests  --with-coverage --cover-package=ndb_prop_gen
+
+after_success:
+  coveralls
