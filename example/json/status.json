@@ -1,0 +1,31 @@
+{
+  "name": "status",
+  "class": "Status",
+  "props": [
+    {
+      "name": "unique",
+      "type": "String",
+      "default": null
+    },
+    {
+      "name": "status_code",
+      "type": "Integer",
+      "default": null
+    },
+    {
+      "name": "name",
+      "type": "I18nString",
+      "default": null
+    },
+    {
+      "name": "is_done",
+      "type": "Boolean",
+      "default": false
+    },
+    {
+      "name": "updated",
+      "type": "DateTime",
+      "default": null
+    }
+  ]
+}
