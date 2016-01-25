@@ -2,6 +2,7 @@ import unittest
 from ndb_prop_gen.generator import _PropGen
 from ndb_prop_gen.generator import PropertyGenerator
 from ndb_prop_gen.error import JsonFormatError
+import ndb_prop_gen as npg
 
 
 class TestBase(unittest.TestCase):
@@ -403,6 +404,124 @@ class LocalPersonProperty(ndb.StructuredProperty):
 
         m_open.assert_called_once_with(self.sample.filename, "w")
         handle = m_open()
+        handle.write.assert_called_once_with("""\
+# -*- coding: utf-8 -*-
+from google.appengine.ext import ndb
+
+__all__ = ["Person", "PersonModel", "PersonProperty", "LocalPersonProperty"]
+
+
+class Person(object):
+    def __init__(self, first_name=\"\", last_name=\"\", age=0):
+        self._first_name = first_name
+        self._last_name = last_name
+        self._age = age
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @property
+    def last_name(self):
+        return self._last_name
+
+    @property
+    def age(self):
+        return self._age
+
+    def _prepare_for_put(self):
+        pass
+
+    def _has_repeated(self):
+        pass
+
+    def _to_dict(self):
+        pass
+
+
+class PersonModel(ndb.Model):
+    first_name = ndb.StringProperty(default=\"\")
+    last_name = ndb.StringProperty(default=\"\")
+    age = ndb.IntegerProperty(default=0)
+
+
+class PersonProperty(ndb.StructuredProperty):
+    def __init__(self, **kwds):
+        super(PersonProperty, self).__init__(PersonModel, **kwds)
+
+    def _validate(self, value):
+        assert isinstance(value, Person)
+
+    def _to_base_type(self, value):
+        return PersonModel(
+            first_name=value.first_name,
+            last_name=value.last_name,
+            age=value.age,
+        )
+
+    def _from_base_type(self, value):
+        return Person(
+            first_name=value.first_name,
+            last_name=value.last_name,
+            age=value.age,
+        )
+
+
+class LocalPersonProperty(ndb.StructuredProperty):
+    def __init__(self, **kwds):
+        super(LocalPersonProperty, self).__init__(PersonModel, **kwds)
+
+    def _validate(self, value):
+        assert isinstance(value, Person)
+
+    def _to_base_type(self, value):
+        return PersonModel(
+            first_name=value.first_name,
+            last_name=value.last_name,
+            age=value.age,
+        )
+
+    def _from_base_type(self, value):
+        return Person(
+            first_name=value.first_name,
+            last_name=value.last_name,
+            age=value.age,
+        )
+""")
+
+
+class TestGenerate(unittest.TestCase):
+
+    def test_generate(self):
+        import json
+        from mock import mock_open, patch, call
+        json_text = json.dumps({
+            "name": "person",
+            "class": "Person",
+            "props": [
+                {
+                    "name": "first_name",
+                    "type": "str",
+                    "default": ""
+                },
+                {
+                    "name": "last_name",
+                    "type": "str",
+                    "default": ""
+                },
+                {
+                    "name": "age",
+                    "type": "int",
+                    "default": 0
+                }
+            ]
+        })
+        m_open = mock_open(read_data=json_text)
+        with patch("__builtin__.open", m_open):
+            npg.generate("")
+
+        handle = m_open()
+        handle.read.assert_called_once_with()
         handle.write.assert_called_once_with("""\
 # -*- coding: utf-8 -*-
 from google.appengine.ext import ndb

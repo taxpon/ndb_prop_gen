@@ -14,8 +14,8 @@ What is this?
 -------------
 Simple generator of `ndb Property Subclass <https://cloud.google.com/appengine/docs/python/ndb/subclassprop>`_. Using json to define the property of the class.
 
-Source json
-~~~~~~~~~~~
+Source json sample
+~~~~~~~~~~~~~~~~~~
 .. code-block:: javascript
 
     {
@@ -51,8 +51,8 @@ Source json
     }
 
 
-Generated python file
-~~~~~~~~~~~~~~~~~~~~~
+Generated python sample
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -160,12 +160,12 @@ Generated python file
             )
 
 
-Please see the `example <https://github.com/taxpon/ndb_prop_gen/tree/master/example>`_ directory for more details.
+Please see the `example <https://github.com/taxpon/ndb_prop_gen/tree/master/example>`_ directory for more examples.
 
 Usage
 -----
 
-1. Install ndb_prop_gen
+1. Install ndb_prop_gen via pip
 
 .. code-block:: bash
 
@@ -173,6 +173,20 @@ Usage
 
 
 2. Call generate method
+
+
+* via command line
+
+
+.. code-block:: bash
+
+    ndb_prop_gen test.json
+
+
+
+* via python code
+
+
 .. code-block:: python
 
     import ndb_prop_gen as npg  # noqa
@@ -181,8 +195,7 @@ Usage
     npg.generate(filename)
 
 
+
 LICENSE
 -------
 MIT
-
-
