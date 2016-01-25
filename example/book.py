@@ -32,13 +32,22 @@ class Book(object):
     def read(self):
         return self._read
 
+    def _prepare_for_put(self):
+        pass
+
+    def _has_repeated(self):
+        pass
+
+    def _to_dict(self):
+        pass
+
 
 class BookModel(ndb.Model):
     title = ndb.StringProperty(default="")
     author = ndb.StringProperty(default="")
     published = ndb.DateTimeProperty()
     price = ndb.FloatProperty(default=10.0)
-    read = ndb.BoolProperty(default=False)
+    read = ndb.BooleanProperty(default=False)
 
 
 class BookProperty(ndb.StructuredProperty):
