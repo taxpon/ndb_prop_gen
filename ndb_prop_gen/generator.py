@@ -53,7 +53,7 @@ class BaseClass(_PropGen):
         return ind1("def _has_repeated(self):\n") + ind2("pass\n\n")
 
     def _create_base_class_to_dict(self):
-        return ind1("def _to_dict(self):\n") + ind2("pass\n\n")
+        return ind1("def _to_dict(self):\n") + ind2("pass\n\n") + ind1("to_dict = _to_dict\n\n")
 
     def create_base_class(self):
         return "class {}(object):\n".format(self.class_list[0]) +\

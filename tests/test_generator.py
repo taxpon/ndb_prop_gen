@@ -124,6 +124,8 @@ class TestBaseClass(TestBase):
     def _to_dict(self):
         pass
 
+    to_dict = _to_dict
+
 """
         )
 
@@ -157,6 +159,8 @@ class Person(object):
 
     def _to_dict(self):
         pass
+
+    to_dict = _to_dict
 
 
 """
@@ -344,6 +348,8 @@ class Person(object):
     def _to_dict(self):
         pass
 
+    to_dict = _to_dict
+
 
 class PersonModel(ndb.Model):
     first_name = ndb.StringProperty(default=\"\")
@@ -437,6 +443,8 @@ class Person(object):
 
     def _to_dict(self):
         pass
+
+    to_dict = _to_dict
 
 
 class PersonModel(ndb.Model):
@@ -555,6 +563,8 @@ class Person(object):
 
     def _to_dict(self):
         pass
+
+    to_dict = _to_dict
 
 
 class PersonModel(ndb.Model):
