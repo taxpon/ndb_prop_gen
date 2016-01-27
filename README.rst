@@ -99,6 +99,8 @@ Generated python sample
         def _to_dict(self):
             pass
 
+        to_dict = _to_dict
+
 
     class BookModel(ndb.Model):
         title = ndb.StringProperty(default="")
